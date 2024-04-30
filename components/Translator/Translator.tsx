@@ -1,105 +1,88 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import "./Translator.css";
+
+import React, { useCallback, useEffect, useRef, useState } from "react";
+
 import { random } from "lodash";
-
-// const translations: { [key: string]: string[] } = {
-//   skibidi: ["subpar", "crappy"],
-//   toilet: ["garbage", "bad"],
-//   rizz: ["style", "charm", "game"],
-//   "fanum tax": ["sharing", "feasting"],
-//   gyat: ["excitement", "enthusiasm"],
-//   "ratio’d": ["controversial", "provocative"],
-//   "cap and no cap": ["exaggerating", "truthful"],
-//   goated: ["greatest", "unbeatable"],
-//   "big yikes": ["awkward", "embarrassing"],
-//   "sigma male": ["self-reliant", "loner"],
-//   "it’s giving": ["expressive", "vibing"],
-// };
-
-const translations: {
-  [key: string]: { matches: string[]; translations: string[] };
-} = {
-  skibidi: {
-    matches: ["skibidi", "skibi"],
-    translations: ["subpar", "crappy"],
-  },
-  toilet: { matches: ["toilet", "loo"], translations: ["garbage", "bad"] },
-  rizz: { matches: ["rizz"], translations: ["style", "charm", "game"] },
-  "fanum tax": {
-    matches: ["fanum tax"],
-    translations: ["sharing", "feasting"],
-  },
-  gyat: {
-    matches: ["gyat", "gyatt"],
-    translations: ["excitement", "enthusiasm"],
-  },
-  ratiod: {
-    matches: ["ratiod", "ratioed"],
-    translations: ["controversial", "provocative"],
-  },
-  cap: {
-    matches: ["cap"],
-    translations: ["exaggerated", "unreal"],
-  },
-  "no cap": {
-    matches: ["no cap"],
-    translations: ["truthful", "real"],
-  },
-  goated: {
-    matches: ["goated"],
-    translations: ["greatest", "unbeatable"],
-  },
-  "big yikes": {
-    matches: ["big yikes"],
-    translations: ["awkward", "embarrassing"],
-  },
-  sigma: {
-    matches: ["sigma"],
-    translations: ["self-reliant", "loner"],
-  },
-  "it's giving": {
-    matches: ["its giving", "its givin"],
-    translations: ["seems like", "reminds me of"],
-  },
-};
+import { translations } from "./data";
 
 export const Translator = () => {
+  const textRef = useRef<HTMLDivElement>(null);
+
   const [inputText, setInputText] = useState("");
   const [outputText, setOutputText] = useState("");
 
-  // Write a function that translates the input text
+  useEffect(() => {
+    if (!textRef.current) return;
+
+    textRef.current.classList.remove("typewriter");
+    void textRef.current.offsetWidth; // trigger a reflow
+    textRef.current.classList.add("typewriter");
+  }, [outputText]);
+
   const translateText = useCallback(() => {
-    let translatedText = inputText;
-    for (const [key, value] of Object.entries(translations)) {
-      for (const match of value.matches) {
-        const regex = new RegExp(match, "gi");
-        translatedText = translatedText.replace(
-          regex,
-          value.translations[random(0, value.translations.length - 1)]
-        );
-      }
-    }
-    setOutputText(translatedText);
+    // Translate the input text as naturally as possible, using the translations object
+    // and prefixing words with proper articles (a, an, the) where necessary.
+    // Some translations object entries are actually phrases and may include multiple words.
+    // If a translation is not found, return the original word.
+    const translatedWords = inputText.split(" ").map((word) => {
+      const lowerCaseWord = word.toLowerCase();
+      const translation =
+        Object.entries(translations).find(([key, value]) =>
+          value.matches.includes(lowerCaseWord)
+        )?.[1].translations[random(0, 1)] ?? word;
+      return translation;
+    });
+    const initialPass = translatedWords.join(" ");
+
+    // Scan the translations object for matches of multiple words and replace them with the translation.
+    // If a translation is not found, return the original phrase.
+    const translatedPhrase = Object.entries(translations).reduce(
+      (phrase, [key, value]) => {
+        const lowerCasePhrase = phrase.toLowerCase();
+        const translation = value.translations[random(0, 1)];
+        return lowerCasePhrase.includes(key)
+          ? lowerCasePhrase.replace(key, translation)
+          : phrase;
+      },
+      initialPass
+    );
+
+    setOutputText(translatedPhrase);
   }, [inputText]);
 
-  useEffect(() => {
-    translateText();
-  }, [inputText, translateText]);
-
   return (
-    <div>
-      <h1>Generation Alpha Translator</h1>
-      <textarea
-        value={inputText}
-        onChange={(e) => setInputText(e.target.value)}
-        placeholder="Enter text to translate..."
-        rows={6}
-        cols={50}
-        className="text-black"
-      />
-      <h2>Translated Text:</h2>
-      <div>{outputText}</div>
-    </div>
+    <section className="w-1/2">
+      <div>
+        <h1 className="p-4 text-center text-xl">
+          Gen Z/Alpha Translator with the Most Rizz
+        </h1>
+        <textarea
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+          placeholder="Enter text to translate..."
+          rows={6}
+          cols={50}
+          className="text-black p-4 resize-none w-full rounded-lg"
+        />
+      </div>
+      <div className="text-center">
+        <button
+          onClick={translateText}
+          className="bg-blue-500 text-white w-full p-4 rounded-lg mt-4"
+        >
+          Translate
+        </button>
+        {outputText ? (
+          <div
+            className="w-full bg-gray-50 rounded-lg p-4 mt-6 typewriter"
+            ref={textRef}
+          >
+            <p>{outputText}</p>
+          </div>
+        ) : null}
+      </div>
+    </section>
   );
 };
