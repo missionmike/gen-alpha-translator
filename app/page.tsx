@@ -1,4 +1,5 @@
-import Image from "next/image";
+import "./page.css";
+
 import { Translator } from "@/components/Translator/Translator";
 
 export default function Home() {

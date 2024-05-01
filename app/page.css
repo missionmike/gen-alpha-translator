@@ -1,0 +1,9 @@
+body {
+  background-image: url("/images/no-cap-bg.jpg");
+  background-size: cover;
+  background-position: center center;
+}
+
+main {
+  background-color: rgba(0, 0, 0, 0.7);
+}

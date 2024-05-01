@@ -27,7 +27,7 @@ export const translations: {
   },
   "no cap": {
     matches: ["no cap"],
-    translations: ["truthful", "real"],
+    translations: ["truthful", "for real", "really"],
   },
   ohio: {
     matches: ["ohio", "baked ohio"],

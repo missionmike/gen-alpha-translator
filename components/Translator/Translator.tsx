@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { random } from "lodash";
 import { translations } from "./data";
@@ -12,10 +12,6 @@ export const Translator = () => {
   const [outputText, setOutputText] = useState("");
 
   const translateText = useCallback(() => {
-    // Translate the input text as naturally as possible, using the translations object
-    // and prefixing words with proper articles (a, an, the) where necessary.
-    // Some translations object entries are actually phrases and may include multiple words.
-    // If a translation is not found, return the original word.
     const phrases = Object.keys(translations).sort(
       (a, b) => b.length - a.length
     );
@@ -24,26 +20,26 @@ export const Translator = () => {
       .join("|");
     const regex = new RegExp(`\\b(${pattern})\\b`, "gi");
 
-    const initialPass = inputText.replace(regex, (match) => {
+    const translation = inputText.replace(regex, (match) => {
       const lowerCaseMatch = match.toLowerCase();
       const translation =
         translations[lowerCaseMatch]?.translations[random(0, 1)] ?? match;
       return translation;
     });
 
-    setOutputText(initialPass);
+    setOutputText(translation);
   }, [inputText]);
 
   return (
     <section className="w-1/2">
       <div>
-        <h1 className="p-4 text-center text-xl">
-          Gen Z/Alpha Translator with the Most Rizz
+        <h1 className="p-4 text-center text-xl text-white">
+          Gen Z/Alpha Translator with Rizz
         </h1>
         <textarea
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
-          placeholder="Enter text to translate..."
+          placeholder="Enter text to translate, no cap..."
           rows={6}
           cols={50}
           className="text-black p-4 resize-none w-full rounded-lg"
