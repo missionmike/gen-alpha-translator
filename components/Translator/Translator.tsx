@@ -53,10 +53,7 @@ export const Translator = () => {
           Translate
         </button>
         {outputText ? (
-          <div
-            className="w-full bg-gray-50 rounded-lg p-4 mt-6 typewriter"
-            ref={textRef}
-          >
+          <div className="w-full bg-gray-50 rounded-lg p-4 mt-6" ref={textRef}>
             <p>{outputText}</p>
           </div>
         ) : null}
