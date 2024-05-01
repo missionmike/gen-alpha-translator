@@ -5,10 +5,6 @@ export const translations: {
     matches: ["big yikes"],
     translations: ["awkward", "embarrassing"],
   },
-  "no cap": {
-    matches: ["no cap"],
-    translations: ["truthful", "real"],
-  },
   cap: {
     matches: ["cap"],
     translations: ["exaggerated", "unreal"],
@@ -29,9 +25,17 @@ export const translations: {
     matches: ["its giving", "it's giving", "its givin"],
     translations: ["seems like", "reminds me of"],
   },
+  "no cap": {
+    matches: ["no cap"],
+    translations: ["truthful", "real"],
+  },
   ohio: {
     matches: ["ohio", "baked ohio"],
     translations: ["obscene", "ridiculous"],
+  },
+  "on god": {
+    matches: ["on god"],
+    translations: ["I swear", "I promise"],
   },
   ratiod: {
     matches: ["ratiod", "ratioed", "ratio'd"],
