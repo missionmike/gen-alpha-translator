@@ -54,6 +54,7 @@ export const Translator = () => {
         <button
           onClick={translateText}
           className="bg-purple-500 text-white w-full p-4 rounded-lg mt-4"
+          id="translate-btn"
         >
           Translate
         </button>

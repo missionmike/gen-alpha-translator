@@ -16,7 +16,15 @@ export default function Home() {
         >
           sleepyslawths.com
         </Link>{" "}
-        🦥
+        🦥 <span className="ml-5 mr-5 text-gray-400">|</span> explore the code
+        on{" "}
+        <Link
+          href="https://github.com/missionmike/gen-alpha-translator"
+          className="text-purple-300 underline"
+          target="_blank"
+        >
+          GitHub
+        </Link>
       </footer>
     </main>
   );
