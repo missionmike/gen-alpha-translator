@@ -42,7 +42,7 @@ export const translations: {
     translations: ["beat at their own game", "completely overshadowed"],
   },
   rizz: {
-    matches: ["rizz"],
+    matches: ["riz", "rizz"],
     translations: ["charm", "game", "charisma"],
   },
   rizzler: {
@@ -54,10 +54,13 @@ export const translations: {
     translations: ["self-reliant", "loner"],
   },
   skibidi: {
-    matches: ["skibidi", "skibi"],
+    matches: ["skibidi", "skibiddi", "skibi"],
     translations: ["subpar", "crappy"],
   },
-  toilet: { matches: ["toilet"], translations: ["garbage", "bad"] },
+  toilet: {
+    matches: ["toilet", "toilet water"],
+    translations: ["garbage", "bad"],
+  },
   vibes: { matches: ["vibes", "vibe"], translations: ["energy", "mood"] },
   vibing: { matches: ["vibing"], translations: ["enjoying", "having fun"] },
 };

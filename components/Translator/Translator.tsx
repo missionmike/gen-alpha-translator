@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { random } from "lodash";
 import { translations } from "./translations";
@@ -12,15 +12,17 @@ declare global {
 }
 
 export const Translator = () => {
-  const textRef = useRef<HTMLDivElement>(null);
+  const textInputRef = useRef<HTMLTextAreaElement>(null);
+  const textOutputRef = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
 
   const [inputText, setInputText] = useState("");
   const [outputText, setOutputText] = useState("");
 
   const translateText = useCallback(() => {
-    const phrases = Object.keys(translations).sort(
-      (a, b) => b.length - a.length
-    );
+    const phrases = Object.entries(translations)
+      .flatMap(([key, value]) => value.matches)
+      .sort((a, b) => b.length - a.length);
     const pattern = phrases
       .map((phrase) => phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
       .join("|");
@@ -28,8 +30,12 @@ export const Translator = () => {
 
     const translation = inputText.replace(regex, (match) => {
       const lowerCaseMatch = match.toLowerCase();
-      const translation =
-        translations[lowerCaseMatch]?.translations[random(0, 1)] ?? match;
+      const key = Object.keys(translations).find((key) =>
+        translations[key].matches.includes(lowerCaseMatch)
+      );
+      const translation = key
+        ? translations[key]?.translations[random(0, 1)]
+        : match;
       return translation;
     });
 
@@ -39,6 +45,11 @@ export const Translator = () => {
       translation: { inputText, outputText: translation },
     });
   }, [inputText]);
+
+  // When the page loads, focus the cursor in the textarea.
+  useEffect(() => {
+    textInputRef.current?.focus();
+  }, []);
 
   return (
     <section className="w-full sm:w-1/2 p-6 sm:p-0 mt-10 sm:mt-16">
@@ -55,9 +66,10 @@ export const Translator = () => {
           className="text-black p-4 resize-none w-full rounded-lg"
           onKeyDown={(e) => {
             if (e.key === "Enter" && e.metaKey) {
-              translateText();
+              btnRef.current?.click();
             }
           }}
+          ref={textInputRef}
         />
       </div>
       <div className="text-center">
@@ -65,13 +77,14 @@ export const Translator = () => {
           onClick={translateText}
           className="bg-purple-500 text-white w-full p-4 rounded-lg mt-4"
           id="translate-btn"
+          ref={btnRef}
         >
           Translate
         </button>
         {outputText ? (
           <div
             className="w-full bg-gray-50 rounded-lg p-4 mt-6 text-black"
-            ref={textRef}
+            ref={textOutputRef}
           >
             <p>{outputText}</p>
           </div>
