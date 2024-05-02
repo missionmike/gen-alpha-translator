@@ -39,7 +39,7 @@ export const translations: {
   },
   ratiod: {
     matches: ["ratiod", "ratioed", "ratio'd"],
-    translations: ["controversial", "provocative"],
+    translations: ["beat at their own game", "completely overshadowed"],
   },
   rizz: {
     matches: ["rizz"],

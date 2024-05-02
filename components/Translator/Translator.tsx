@@ -31,10 +31,10 @@ export const Translator = () => {
   }, [inputText]);
 
   return (
-    <section className="w-1/2">
+    <section className="w-full sm:w-1/2 p-6 sm:p-0">
       <div>
         <h1 className="p-4 text-center text-xl text-white">
-          Gen Z/Alpha Translator with Rizz
+          gen z/alpha translator with the most rizz
         </h1>
         <textarea
           value={inputText}
@@ -48,7 +48,7 @@ export const Translator = () => {
       <div className="text-center">
         <button
           onClick={translateText}
-          className="bg-blue-500 text-white w-full p-4 rounded-lg mt-4"
+          className="bg-purple-500 text-white w-full p-4 rounded-lg mt-4"
         >
           Translate
         </button>
