@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 
 import { random } from "lodash";
-import { translations } from "./data";
+import { translations } from "./translations";
 
 export const Translator = () => {
   const textRef = useRef<HTMLDivElement>(null);
