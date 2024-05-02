@@ -10,7 +10,7 @@ export const translations: {
     translations: ["exaggerated", "unreal"],
   },
   "fanum tax": {
-    matches: ["fanum tax"],
+    matches: ["fanum tax", "phantom tax"],
     translations: ["stealing your friend's food", "mooching"],
   },
   goated: {
@@ -59,4 +59,5 @@ export const translations: {
   },
   toilet: { matches: ["toilet"], translations: ["garbage", "bad"] },
   vibes: { matches: ["vibes", "vibe"], translations: ["energy", "mood"] },
+  vibing: { matches: ["vibing"], translations: ["enjoying", "having fun"] },
 };

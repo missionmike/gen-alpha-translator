@@ -43,6 +43,11 @@ export const Translator = () => {
           rows={6}
           cols={50}
           className="text-black p-4 resize-none w-full rounded-lg"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && e.metaKey) {
+              translateText();
+            }
+          }}
         />
       </div>
       <div className="text-center">
@@ -53,7 +58,10 @@ export const Translator = () => {
           Translate
         </button>
         {outputText ? (
-          <div className="w-full bg-gray-50 rounded-lg p-4 mt-6" ref={textRef}>
+          <div
+            className="w-full bg-gray-50 rounded-lg p-4 mt-6 text-black"
+            ref={textRef}
+          >
             <p>{outputText}</p>
           </div>
         ) : null}
