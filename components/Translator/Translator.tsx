@@ -5,6 +5,12 @@ import React, { useCallback, useRef, useState } from "react";
 import { random } from "lodash";
 import { translations } from "./translations";
 
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
+
 export const Translator = () => {
   const textRef = useRef<HTMLDivElement>(null);
 
@@ -28,6 +34,10 @@ export const Translator = () => {
     });
 
     setOutputText(translation);
+
+    window.dataLayer.push({
+      translation: { inputText, outputText: translation },
+    });
   }, [inputText]);
 
   return (
