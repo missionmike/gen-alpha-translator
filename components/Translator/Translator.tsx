@@ -5,6 +5,12 @@ import React, { useCallback, useRef, useState } from "react";
 import { random } from "lodash";
 import { translations } from "./translations";
 
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
+
 export const Translator = () => {
   const textRef = useRef<HTMLDivElement>(null);
 
@@ -28,6 +34,16 @@ export const Translator = () => {
     });
 
     setOutputText(translation);
+
+    // Send a Google Analytics event with the input and output text.
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "gtm.click",
+      eventCategory: "translate",
+      eventAction: "translate",
+      eventLabel: inputText,
+      eventValue: translation,
+    });
   }, [inputText]);
 
   return (
