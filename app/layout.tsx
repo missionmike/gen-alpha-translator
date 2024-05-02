@@ -10,6 +10,23 @@ export const metadata: Metadata = {
   title: "gen z/alpha translator with the most rizz",
   description:
     "ever wanted to know what skibidi toilet rizz means? now you can find out!",
+  openGraph: {
+    title: "gen z/alpha translator with the most rizz",
+    description:
+      "ever wanted to know what skibidi toilet rizz means? now you can find out!",
+    type: "website",
+    locale: "en_US",
+    url: "https://translator.sleepyslawths.com/",
+    siteName: "gen z/alpha translator with the most rizz",
+    images: [
+      {
+        url: "https://translator.sleepyslawths.com/images/rizz-bg.jpg",
+        width: 1200,
+        height: 1200,
+        alt: "gen z/alpha translator with the most rizz",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
