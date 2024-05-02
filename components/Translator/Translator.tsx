@@ -31,7 +31,7 @@ export const Translator = () => {
   }, [inputText]);
 
   return (
-    <section className="w-full sm:w-1/2 p-6 sm:p-0">
+    <section className="w-full sm:w-1/2 p-6 sm:p-0 mt-10 sm:mt-16">
       <div>
         <h1 className="p-4 text-center text-xl text-white">
           gen z/alpha translator with the most rizz
