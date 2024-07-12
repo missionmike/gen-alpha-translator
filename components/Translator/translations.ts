@@ -1,6 +1,10 @@
 export const translations: {
   [key: string]: { matches: string[]; translations: string[] };
 } = {
+  aura: {
+    matches: ["aura"],
+    translations: ["vibe", "energy"],
+  },
   "big yikes": {
     matches: ["big yikes"],
     translations: ["awkward", "embarrassing"],
@@ -24,6 +28,10 @@ export const translations: {
   "it's giving": {
     matches: ["its giving", "it's giving", "its givin"],
     translations: ["seems like", "reminds me of"],
+  },
+  legit: {
+    matches: ["legit"],
+    translations: ["real", "legitamate"],
   },
   "no cap": {
     matches: ["no cap"],
